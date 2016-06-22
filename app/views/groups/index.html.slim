@@ -1,0 +1,6 @@
+- @groups.each do |group|
+  h1 = link_to group.name, group
+  h3 = group.url
+  = link_to 'delete', group_path(group), method: :delete
+br
+= link_to 'New group request', new_group_path, class: 'btn btn-primary'
