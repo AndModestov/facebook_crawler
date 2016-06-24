@@ -1,0 +1,7 @@
+header.navbar.navbar-fixed-top.navbar-inverse
+  .navbar-inner
+    = link_to "Crawler", root_path, id: "logo"
+    nav
+      ul.nav.nav-pills.pull-right
+        li = link_to "Groups", groups_path
+        li = link_to "New Group", new_group_path
