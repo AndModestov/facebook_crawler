@@ -2,24 +2,23 @@ class GroupsController < ApplicationController
   before_action :find_group, only: [:show, :destroy]
 
   def index
-    @groups = Group.all
+    respond_with(@groups = Group.all)
   end
 
   def show
+    respond_with(@group)
   end
 
   def new
-    @group = Group.new
+    respond_with(@group = Group.new)
   end
 
   def create
-    Group.create(group_params)
-    redirect_to groups_path
+    respond_with(@group = Group.create(group_params))
   end
 
   def destroy
-    @group.destroy
-    redirect_to groups_path
+    respond_with(@group.destroy)
   end
 
   private
