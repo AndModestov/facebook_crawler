@@ -14,6 +14,8 @@ gem 'twitter-bootstrap-rails', git: 'git://github.com/seyhunak/twitter-bootstrap
 gem 'responders'
 gem 'selenium-webdriver'
 gem 'capybara'
+gem 'sidekiq'
+gem 'sinatra', '>=1.3.0', require: nil
 
 gem 'sdoc', group: :doc
 
