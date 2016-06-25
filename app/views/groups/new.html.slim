@@ -7,13 +7,13 @@ h2 = "New group"
   p
     = f.label :url
     = f.text_field :url
-  p User data:
+  h3 User data:
   p
-    = label_tag :email, 'Email:'
-    = email_field_tag :email, params[:email]
+    = f.label :auth_login
+    = f.email_field :auth_login
   p
-    = label_tag :password, 'Password:'
-    = password_field_tag :password, params[:password]
+    = f.label :auth_password
+    = f.password_field :auth_password
 
   br
   p = f.submit 'Submit', class: 'btn btn-large btn-primary'
