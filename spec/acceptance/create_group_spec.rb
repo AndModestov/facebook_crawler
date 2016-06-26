@@ -9,6 +9,11 @@ feature 'Create group' do
 
   scenario 'user tries to create group' do
     fill_in 'Url', with: 'http://example.com'
+    fill_in 'Auth login', with: 'test@example.com'
+    fill_in 'Auth password', with: '123456'
+    fill_in 'Start time', with: '2016-06-20T00:00:00+00:00'
+    fill_in 'End time', with: '2016-06-25T00:00:00+00:00'
+
     click_on 'Submit'
 
     expect(page).to have_content 'Group was successfully created.'

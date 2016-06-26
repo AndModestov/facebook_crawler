@@ -10,10 +10,17 @@ h2 = "New group"
   h3 User data:
   p
     = f.label :auth_login
-    = f.email_field :auth_login
+    = f.text_field :auth_login
   p
     = f.label :auth_password
     = f.password_field :auth_password
+  h3 Time interval:
+  p
+    = f.label :start_time
+    = f.text_field :start_time
+  p
+    = f.label :end_time
+    = f.text_field :end_time
 
   br
   p = f.submit 'Submit', class: 'btn btn-large btn-primary'

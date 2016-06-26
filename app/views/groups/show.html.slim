@@ -1,1 +1,5 @@
 = render @group
+br
+- @group.posts.each do |post|
+  h4 = post.body
+  = link_to post.link, post.link

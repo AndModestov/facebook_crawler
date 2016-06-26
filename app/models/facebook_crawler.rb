@@ -14,6 +14,8 @@ class FacebookCrawler
 
     authenticate!(session, group)
     get_posts!(session, group)
+
+    session.destroy
   end
 
   private
@@ -27,17 +29,15 @@ class FacebookCrawler
 
   def self.get_posts!(session, group)
     session.visit(group.url)
-
-    post_plinks = session.all("a._5pcq")
     post_dates = session.all("abbr._5ptz")
-    n = 0
 
-    10.times do
-      date = post_dates[n][:title]
-      plink = post_plinks[n][:href]
+    post_dates.each do |post_date|
+      date = post_date[:title].to_datetime
 
-      Post.create(group: group, link: plink, body: date.to_datetime)
-      n += 1
+      if date.between?(group.start_time, group.end_time)
+        plink =  post_date.find(:xpath, '..')[:href]
+        Post.create(group: group, link: plink, body: date)
+      end
     end
   end
 
@@ -47,3 +47,4 @@ class FacebookCrawler
   def self.get_shares!
   end
 end
+

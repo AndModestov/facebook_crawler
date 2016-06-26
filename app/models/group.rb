@@ -1,10 +1,10 @@
 class Group < ActiveRecord::Base
-  after_create :get_posts
+  after_commit :get_posts
 
   has_many :posts, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 90 }
-  validates :url, :auth_login, :auth_password, presence: true
+  validates :url, :auth_login, :auth_password, :start_time, :end_time, presence: true
 
   private
 
