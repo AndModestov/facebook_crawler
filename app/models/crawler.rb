@@ -10,27 +10,40 @@ class FacebookCrawler
 
   def self.check_group(group_id)
     group = Group.find(group_id)
-    login_data = { login: group.auth_login, pass: group.auth_password }
     session = Capybara::Session.new(:selenium)
 
-    authenticate!(session, login_data)
+    authenticate!(session, group)
+    get_posts!(session, group)
   end
 
   private
 
-  def self.authenticate!(session, login_data)
+  def self.authenticate!(session, group)
     session.visit('/')
-    session.fill_in 'Email or Phone', with: login_data[:login]
-    session.fill_in 'Password', with: login_data[:pass]
+    session.fill_in 'Email or Phone', with: group.auth_login
+    session.fill_in 'Password', with: group.auth_password
     session.click_button 'Log In'
   end
 
-  def self.get_posts
+  def self.get_posts!(session, group)
+    session.visit(group.url)
+
+    post_plinks = session.all("a._5pcq")
+    post_dates = session.all("abbr._5ptz")
+    n = 0
+
+    10.times do
+      date = post_dates[n][:title]
+      plink = post_plinks[n][:href]
+
+      Post.create(group: group, link: plink, body: date.to_datetime)
+      n += 1
+    end
   end
 
-  def self.get_likes
+  def self.get_likes!
   end
 
-  def self.get_shares
+  def self.get_shares!
   end
 end

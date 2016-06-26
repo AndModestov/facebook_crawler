@@ -1,5 +1,5 @@
 class Group < ActiveRecord::Base
-  after_commit :get_posts
+  after_create :get_posts
 
   has_many :posts, dependent: :destroy
 
