@@ -1,5 +1,7 @@
 = render @group
-br
-- @group.posts.each do |post|
-  h4 = post.body
-  = link_to post.link, post.link
+
+.posts
+  h2 Posts:
+  - @group.posts.sort_posts.each do |post|
+    h4 = post.body
+    = link_to post.link, post.link

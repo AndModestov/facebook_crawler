@@ -15,7 +15,7 @@ class FacebookCrawler
     authenticate!(session, group)
     get_posts!(session, group)
 
-    session.destroy
+    session.current_window.close
   end
 
   private
@@ -36,7 +36,7 @@ class FacebookCrawler
 
       if date.between?(group.start_time, group.end_time)
         plink =  post_date.find(:xpath, '..')[:href]
-        Post.create(group: group, link: plink, body: date)
+        Post.create(group: group, link: plink, body: date) if plink.include?('permalink')
       end
     end
   end
