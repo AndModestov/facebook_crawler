@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160626125756) do
+ActiveRecord::Schema.define(version: 20160627094219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(version: 20160626125756) do
     t.datetime "end_time"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.string   "user"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "post_id"
+  end
+
+  add_index "likes", ["post_id"], name: "index_likes_on_post_id", using: :btree
+
   create_table "posts", force: :cascade do |t|
     t.string   "body"
     t.string   "link"
@@ -37,5 +46,6 @@ ActiveRecord::Schema.define(version: 20160626125756) do
 
   add_index "posts", ["group_id"], name: "index_posts_on_group_id", using: :btree
 
+  add_foreign_key "likes", "posts"
   add_foreign_key "posts", "groups"
 end

@@ -3,3 +3,5 @@
     .panel-title = post.body
   .panel-body
     = link_to post.link, post.link
+    h4 Likes:
+    ul = render post.likes

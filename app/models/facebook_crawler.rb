@@ -15,6 +15,11 @@ class FacebookCrawler
     authenticate!(session, group)
     get_posts!(session, group)
 
+    group.posts.each do |post|
+      get_likes!(session, post)
+      get_shares!(session, post)
+    end
+
     session.current_window.close
   end
 
@@ -36,15 +41,27 @@ class FacebookCrawler
 
       if date.between?(group.start_time, group.end_time)
         plink =  post_date.find(:xpath, '..')[:href]
-        Post.create(group: group, link: plink, body: date) if plink.include?('permalink')
+
+        group.posts.create(link: plink, body: date) if plink.include?('permalink')
       end
     end
   end
 
-  def self.get_likes!
+  def self.get_likes!(session, post)
+    session.visit(post.link)
+    like_list = session.find("a._2x4v")[:href]
+    session.visit(like_list)
+    likes = session.all("._5j0e")
+
+    likes.each do |like|
+      user = like.first("a")[:href]
+
+      post.likes.create(user: user)
+    end
   end
 
-  def self.get_shares!
+  def self.get_shares!(session, post)
+
   end
 end
 
