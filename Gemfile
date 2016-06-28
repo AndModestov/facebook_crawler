@@ -16,6 +16,9 @@ gem 'selenium-webdriver'
 gem 'capybara'
 gem 'sidekiq'
 gem 'sinatra', '>=1.3.0', require: nil
+gem 'private_pub'
+gem 'thin'
+gem 'skim'
 
 gem 'sdoc', group: :doc
 

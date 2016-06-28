@@ -21,7 +21,7 @@ class GroupsController < ApplicationController
 
   def destroy
     @group.destroy
-    render json:{group_id: @group.id}
+    render json:{ group_id: @group.id }
   end
 
   private

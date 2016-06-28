@@ -1,6 +1,10 @@
 = render @group
 
-.posts
+.posts id = "posts_#{@group.id}"
   h2 Posts:
   - @group.posts.sort_posts.each do |post|
     = render 'posts/post', post: post
+
+= subscribe_to "/posts"
+= subscribe_to "/likes"
+= subscribe_to "/shares"

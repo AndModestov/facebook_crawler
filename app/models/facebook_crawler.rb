@@ -34,7 +34,8 @@ class FacebookCrawler
 
   def self.get_posts!(session, group)
     session.visit(group.url)
-    scroll_down(session, 10)
+    scroll_down(session, 1)
+    scroll_down(session, 10) if (group.start_time < (Time.now - 1.week))
 
     post_dates = session.all("abbr._5ptz")
 
@@ -44,7 +45,7 @@ class FacebookCrawler
       if date.between?(group.start_time, group.end_time)
         plink =  post_date.find(:xpath, '..')[:href]
 
-        group.posts.create(link: plink, body: date) if plink.include?('permalink')
+        create_and_publish_post(group, plink, date) if plink.include?('permalink')
       end
     end
   end
@@ -60,7 +61,7 @@ class FacebookCrawler
     likes.each do |like|
       user = like.first("a")[:href]
 
-      post.likes.create(user: user)
+      create_and_publish_like(post, user)
     end
   end
 
@@ -88,6 +89,16 @@ class FacebookCrawler
       session.execute_script('window.scrollTo(0, document.body.scrollHeight)')
       sleep 0.5
     end
+  end
+
+  def self.create_and_publish_post(group, plink, date)
+    post = group.posts.create(link: plink, body: date)
+    PrivatePub.publish_to "/posts", post: post.to_json
+  end
+
+  def self.create_and_publish_like(post, user)
+    like = post.likes.create(user: user)
+    PrivatePub.publish_to "/likes", like: like.to_json
   end
 end
 

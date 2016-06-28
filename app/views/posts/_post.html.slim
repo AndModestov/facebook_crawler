@@ -4,6 +4,8 @@
   .panel-body
     = link_to post.link, post.link
     h4 Likes:
-    ul = render post.likes
+    ul id = "likes_#{post.id}"
+      = render post.likes
     h4 Shares:
-    ul = render post.shares
+    ul id = "shares_#{post.id}"
+      = render post.shares

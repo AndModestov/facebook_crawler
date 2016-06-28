@@ -1,0 +1,12 @@
+.comment.panel.panel-info
+  .panel-heading
+    .panel-title #{ @post_body }
+  .panel-body
+    a href="#{ @post_link }"
+      | #{ @post_link }
+    h4
+      | Likes:
+    ul id="likes_#{@post_id}"
+    h4
+      | Shares:
+    ul id="shares_#{@post_id}"
