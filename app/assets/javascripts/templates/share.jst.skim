@@ -1,0 +1,6 @@
+li
+  div
+    | #{ @date }
+  div
+    a href="#{ @user_link }"
+      | #{ @user_link }

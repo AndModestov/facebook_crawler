@@ -79,7 +79,7 @@ class FacebookCrawler
       repost_link =  share.find(:xpath, '..')[:href]
       user = 'https://www.facebook.com/' + repost_link.split('/')[3]
 
-      post.shares.create(date: date, user: user)
+      create_and_publish_share(post, date, user)
     end
   end
 
@@ -99,6 +99,11 @@ class FacebookCrawler
   def self.create_and_publish_like(post, user)
     like = post.likes.create(user: user)
     PrivatePub.publish_to "/likes", like: like.to_json
+  end
+
+  def self.create_and_publish_share(post, date, user)
+    share = post.shares.create(date: date, user: user)
+    PrivatePub.publish_to "/shares", share: share.to_json
   end
 end
 

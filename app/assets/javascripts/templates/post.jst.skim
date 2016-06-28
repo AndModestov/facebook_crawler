@@ -1,4 +1,4 @@
-.comment.panel.panel-info
+.post.panel.panel-info
   .panel-heading
     .panel-title #{ @post_body }
   .panel-body
