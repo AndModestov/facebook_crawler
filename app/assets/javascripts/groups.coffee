@@ -5,7 +5,6 @@ ready = ->
   $("#group_start_time").datetimepicker();
   $("#group_end_time").datetimepicker();
 
-
 $(document).ready(ready)
 $(document).on('page:load', ready)
 $(document).on('page:update', ready)
