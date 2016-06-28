@@ -1,6 +1,8 @@
 class GroupsController < ApplicationController
   before_action :find_group, only: [:show, :destroy]
 
+  respond_to :json, only: :destroy
+
   def index
     respond_with(@groups = Group.all)
   end
@@ -18,7 +20,8 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    respond_with(@group.destroy)
+    @group.destroy
+    render json:{group_id: @group.id}
   end
 
   private
