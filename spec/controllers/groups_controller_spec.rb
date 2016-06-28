@@ -72,14 +72,11 @@ RSpec.describe GroupsController, type: :controller do
     let!(:group) { create(:group) }
 
     it 'deletes group' do
-      expect{
-        delete :destroy, id: group
-      }.to change(Group, :count).by(-1)
+      expect{ delete :destroy, id: group }.to change(Group, :count).by(-1)
     end
 
-    it 'redirect to index view' do
-      delete :destroy, id: group
-      expect(response).to redirect_to groups_path
+    it 'returns 200 status' do
+      expect(response).to be_success
     end
   end
 end
